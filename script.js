@@ -39,14 +39,16 @@ function updateDisplay() {
     autoButton.textContent = "Buy Auto-Clicker (Cost: 10) Owned: " + autoClickers;
 }
 
-// Floating/runaway button after 25 clicks (stays on screen)
+// Floating/runaway button after 25 clicks (stays ~1 inch from edges)
 earnButton.addEventListener("mousemove", (e) => {
     if (clickCount >= 25) {
+        const buffer = 96; // ~1 inch from edges
         const buttonWidth = earnButton.offsetWidth;
         const buttonHeight = earnButton.offsetHeight;
 
-        const maxX = window.innerWidth - buttonWidth;   // max allowed left
-        const maxY = window.innerHeight - buttonHeight; // max allowed top
+        // Maximum allowed positions
+        const maxX = window.innerWidth - buttonWidth - buffer;
+        const maxY = window.innerHeight - buttonHeight - buffer;
 
         const rect = earnButton.getBoundingClientRect();
         const buttonX = rect.left + buttonWidth / 2;
@@ -54,18 +56,18 @@ earnButton.addEventListener("mousemove", (e) => {
 
         const distanceX = e.clientX - buttonX;
         const distanceY = e.clientY - buttonY;
-        const distance = Math.sqrt(distanceX**2 + distanceY**2);
+        const distance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
 
-        if (distance < 100) { // only move when cursor is close
-            let moveX = -distanceX / 2 + (Math.random() * 20 - 10); // small random jitter
+        if (distance < 100) { // move only when cursor is close
+            let moveX = -distanceX / 2 + (Math.random() * 20 - 10);
             let moveY = -distanceY / 2 + (Math.random() * 20 - 10);
 
             let newLeft = rect.left + moveX;
             let newTop = rect.top + moveY;
 
-            // Keep button inside the viewport
-            newLeft = Math.min(Math.max(newLeft, 0), maxX);
-            newTop = Math.min(Math.max(newTop, 0), maxY);
+            // Clamp so button stays inside buffer
+            newLeft = Math.max(buffer, Math.min(newLeft, maxX));
+            newTop = Math.max(buffer, Math.min(newTop, maxY));
 
             earnButton.style.position = 'absolute';
             earnButton.style.left = newLeft + 'px';
