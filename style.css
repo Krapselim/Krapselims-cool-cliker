@@ -1,10 +1,10 @@
 body {
-    font-family: Arial;
+    font-family: 'Luckiest Guy', cursive; /* silly, playful font */
     text-align: center;
     margin-top: 50px;
     height: 100vh;
     position: relative;
-    overflow: hidden; /* prevent button from going offscreen */
+    overflow: hidden; /* prevents button from leaving screen */
 }
 
 button {
@@ -13,5 +13,5 @@ button {
     margin: 5px;
     cursor: pointer;
     position: relative;
-    transition: all 0.3s ease; /* smooth floating movement */
+    transition: all 0.3s ease; /* smooth movement */
 }
