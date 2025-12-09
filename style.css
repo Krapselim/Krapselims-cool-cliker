@@ -1,0 +1,17 @@
+body {
+    font-family: Arial;
+    text-align: center;
+    margin-top: 50px;
+    height: 100vh;
+    position: relative;
+    overflow: hidden; /* prevent button from going offscreen */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 5px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease; /* smooth floating movement */
+}
